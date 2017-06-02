@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta charset="utf-8">
+    <title>Custom CSS and JavaScript with MyDiscord - Neatcord</title>
+    <meta name="theme-color" content="#212329">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta content="Neatcord" property="og:title">
+    <meta content="Cool Discord tricks you can show off to your friends." property="og:description">
+    <meta content="http://110percent.github.io/neatcord/images/favicon.png" property="og:image">
+
+    <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+    <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="stylesheet" href="/neatcord/skeleton/css/normalize.css">
+    <link rel="stylesheet" href="/neatcord/skeleton/css/skeleton.css">
+    <link rel="stylesheet" href="/neatcord/css/standard.css">
+
+    <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="icon" type="image/png" href="/neatcord/images/favicon.png">
+
+</head>
+
+<body>
+
+    <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <div class="container">
+        <div class="row">
+            <div class="column" style="margin-top: 10%">
+                <h3>Custom CSS and JavaScript with MyDiscord</h3>
+                <h5>Learn how to customize your Discord client to add themes and scripts.</h5>
+            </div>
+        </div>
+        <hr>
+        <div class="row" style="margin-botton: 10%">
+            <div class="column">
+                <p>Let's be real. Discord doesn't exactly offer a lot of options when it comes to themeing. The only two choices you have are Light and Dark theme, and those only change the colours that show on your screen. Compact and Cozy mode exist for
+                    additional customization, but all it really does is adjust text and remove avatars.</p>
+                <p>Modifying CSS (and JS in certain aspects) allows you to customize your client however you want.<br>Justinoboyle's <b><a href="https://github.com/justinoboyle/mydiscord">MyDiscord</a></b> (based off leovoel's <a href="https://github.com/leovoel/BeautifulDiscord">BeautifulDiscord</a>)
+                    allows you to modify the CSS of your Discord client in real-time, as well as add JavaScript to the client.</p>
+                <p><strong>If you already know what CSS is and how to use it, skip to the next section to get started. Otherwise, please continue normally. It's better to understand fully than be confused later.</strong></p>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="nine columns">
+                <h5>What is CSS?</h5>
+                <p><b>CSS</b>, short for Cascading Style Sheet, is a very powerful styling language for the web. Essentially, it's what makes webpages pretty. Your browser reads CSS as a rule on how to display the webpage, from colours to fonts to animations.
+                    Without CSS, a lot of websites would be plain and boring.
+                </p>
+                <h5>Why am I applying this to Discord?</h5>
+                <p>Discord's client runs on <b><a href="https://electron.atom.io/">Electron</a></b>, which uses Chromium browser as a base: The same base Google Chrome uses. It uses HTML, CSS and JS in a similar way Chrome and Firefox do. This means that
+                    applying these stylesheets to Discord will have the same effect as if you were applying them to a webpage.</p>
+            </div>
+            <div class="three columns">
+                <img src="/neatcord/images/css3.png" style="height: 150px; padding-top: 85px; padding-left: 25px;">
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="nine columns">
+                <h5>Requirements</h5>
+                <p>To complete this guide, you will need the following:</p>
+                <ul>
+                    <li>The most recent version of the <b><a href="https://discordapp.com/download">Discord Desktop Client</a></b> (Stable, PTB or Canary)</li>
+                    <li><b><a href="https://www.python.org/">Python</a></b> version 3 or higher</li>
+                    <ul>
+                        <li>Note: When installing Python 3 with Windows, remember to check the "Add Python 3.x to PATH" checkbox on the installation dialog.</li>
+                    </ul>
+                    <li><b><a href="https://packaging.python.org/installing/#install-pip-setuptools-and-wheel">Pip Python Package Manager</a></b> (preferrably the latest version)</li>
+                </ul>
+            </div>
+            <div class="three columns">
+                <img src="/neatcord/images/python.png" style="height: 250px; padding-top: 20px; margin-left: -40px;">
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="column">
+                <h5>Installing MyDiscord</h5>
+                <p>If you have progressed this far, you should already have Python 3.5+ installed!</p>
+                <ol start="1">
+                    <li>Open the command line on your computer.</li>
+                    <ul>
+                        <li>On Windows, this is named "Command Prompt" and can be opened from the Start/Windows menu.</li>
+                        <li>On Mac and Linux, this should be named "Terminal" or "Terminal Emulator". You can find it using the application search (or spotlight in Mac).</li>
+                        <li class="red">Do NOT open the Python terminal. Open the regular command line for your operating system.</li>
+                    </ul>
+                    <li>Check to make sure you have the correct version of Python installed.</li>
+                    <ul>
+                        <li>On Windows, enter <code>python --version</code> into the command prompt.</li>
+                        <li>On Mac or Linux, type <code>python3 --version</code> into the terminal.</li>
+                        <li>If the command returns an error or the Python version is a number under 3.5, install the latest version of Python.</li>
+                    </ul>
+                    <li>Open the Discord client.</li>
+                    <ul>
+                        <li>In order to function, MyDiscord needs an instance of the Discord client to be running when it starts.</li>
+                    </ul>
+                    <li>Install MyDiscord using the command line.</li>
+                    <ul>
+                        <li>On Windows, place the following into the command prompt:<br><code>python -m pip install -U https://github.com/justinoboyle/MyDiscord/archive/master.zip</code></li>
+                        <li>On Mac and Linux, place the following into the terminal:<br><code>python3 -m pip install -U https://github.com/justinoboyle/MyDiscord/archive/master.zip</code></li>
+                    </ul>
+                </ol>
+                <p>If all steps were completed as told, the installation should be complete.<br><span class="red">Do NOT close the command line window!</span></p>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="nine columns">
+                <h5>Running MyDiscord</h5>
+                <p>Running MyDiscord is easier than installing it. Since you already have your command line open, simply enter <code>mydiscord</code>. Your Discord client should restart itself, and you'll be good to go!</p>
+            </div>
+            <div class="three columns">
+                <img src="/neatcord/images/checkmark.svg" style="height: 100px; padding-top: 20px; padding-left: 50px;">
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="column">
+                <h5>Editing CSS and JavaScript</h5>
+                <p>When you ran MyDiscord, the script created two new files: discord-custom.css and discord-custom.js.</p>
+                <ul>
+                    <li>On Windows, these files can be located by opening the Run dialog (Windows + R) and entering <code>%localappdata%\Discord\resources</code>.</li>
+                    <li>On Mac, these files can be found in <code>/Applications/Discord.app/Contents/MacOS/resources</code>.</li>
+                    <li>On Linux, these files are located in the folder <code>/usr/share/discord/resources</code>.</li>
+                </ul>
+                <br>
+                <p>Feel free to open discord-custom.css and edit it to your heart's delight. Any changes you save to this file should be automatically applied to the client.</p>
+                <p>In order to apply changes to the JavaScript, Discord must be reloaded by opening Discord and pressing Ctrl+R (Cmd+R on Mac).</p>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="column">
+                <h5>Applying Themes and scripts</h5>
+                <p>The BeautifulDiscord and MyDiscord community have created libraries of themes and scripts you can apply to your CSS. You can find these resources here:</p>
+                <p><b><a href="https://github.com/beautiful-discord-community/resources/">https://github.com/beautiful-discord-community/resources/</a></b><br>
+                    <b><a href="https://github.com/justinoboyle/mydiscord-resources#modules">https://github.com/justinoboyle/mydiscord-resources#modules</a></b>
+                    <br>
+                    <p>If you need any more assistance, you can find the BeautifulDiscord and MyDiscord Discord server here:</p>
+                    <p><b><a href="https://discord.gg/EDwd5wr">https://discord.gg/EDwd5wr</a></b></p>
+            </div>
+        </div>
+        <hr>
+        <div class="row" style="margin-bottom: 10%">
+            <div class="column">
+                <p>Thanks for reading this guide! Hopefully it was of use to you.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+
+</html>
