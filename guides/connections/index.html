@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta charset="utf-8">
+    <title>Custom Profile Connections with PUT Requests - Neatcord</title>
+    <meta name="theme-color" content="#212329">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta content="Neatcord" property="og:title">
+    <meta content="Cool Discord tricks you can show off to your friends." property="og:description">
+    <meta content="http://110percent.github.io/neatcord/images/favicon.png" property="og:image">
+
+    <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+    <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="stylesheet" href="/neatcord/skeleton/css/normalize.css">
+    <link rel="stylesheet" href="/neatcord/skeleton/css/skeleton.css">
+    <link rel="stylesheet" href="/neatcord/css/standard.css">
+
+    <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="icon" type="image/png" href="/neatcord/images/favicon.png">
+
+</head>
+
+<body>
+
+    <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <div class="container">
+        <div class="row">
+            <div class="column" style="margin-top: 10%">
+                <h3>Custom Profile Connections with PUT Requests</h3>
+                <h5>Learn how to add custom text to your Discord profile with custom social media accounts.</h5>
+            </div>
+        </div>
+        <hr>
+        <div class="row" style="margin-botton: 10%">
+            <div class="column">
+                <p>When it comes to profiles, Discord is a bit lackluster when you look at customization. The only real things that you can modify completely are your username and your avatar. You can add notes to profiles, but those only apply to your own
+                    client and not the profile itself. Eventually, all you have left are the social media connections at the bottom of your profile, and those are controlled by the services you use... or are they?</p>
+                <p>Using a specific HTTP method called a <strong>PUT Request</strong>, we can trick Discord into thinking we have different game/social media (Skype, Battle.net, League of Legends, Steam, etc.) accounts than we actually do, and therefore
+                    we can trick our profiles into displaying custom text for other users to see.</p>
+                <p><strong>If you already know HTTP methods work, skip to the next section to get started. Otherwise, please continue normally. It's better to understand fully than be confused later.</strong></p>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="nine columns">
+                <h5>What are HTTP methods?</h5>
+                <p><b>HTTP methods</b> are what web browsers and web services often use to communicate with each other when they want to send single requests. When you load a webpage, your browser makes a request to the server it's trying to access, then
+                    the server sends the data in its response. When you send a message on Discord or submit a post to Reddit, a different kind of method is used. When you're on the web, HTTP requests are everywhere.</p>
+                <h5>Why am I using this sort of request?</h5>
+                <p>In this guide, we'll be sending a specific type of HTTP request to Discord's servers. When Discord receives the request, the server interprets the request as a new game/social media account being added to your profile, and adds it with
+                    the parameters you provide.</p>
+            </div>
+            <div class="three columns">
+                <img src="/neatcord/images/html5.png" style="height: 150px; padding-top: 85px; padding-left: 5px;">
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="nine columns">
+                <h5>Requirements</h5>
+                <p>To complete this guide, you will need the following:</p>
+                <ul>
+                    <li>Any Discord client (<b><a href="https://discordapp.com/download">Desktop</a></b> or <b><a href="https://discordapp.com/channels/@me">Browser</a></b>)</li>
+                    <li><b><a href="https://www.getpostman.com/">Postman</a></b> API Request Builder</li>
+                </ul>
+            </div>
+            <div class="three columns">
+                <img src="/neatcord/images/postman.png" style="height: 175px; padding-top: 20px; margin-left: -10px;">
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="column">
+                <h5>Setting up Postman and the request</h5>
+                <ol start="1">
+                    <li>Open Postman using the method for your operating system (or Chrome, if you installed the Chrome app).</li>
+                    <li>Select the dropdown menu under the tab indicator, and set the value to <code>PUT</code>.</li>
+                    <li>In the <code>Headers</code> section, add the following headers:</li>
+                    <table class="u-full-width">
+                        <thead>
+                            <tr>
+                                <th>Key</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Cache-Control</td>
+                                <td>no-cache</td>
+                            </tr>
+                            <tr>
+                                <td>Content-type</td>
+                                <td>application/json</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <li>Select the <code>Body</code> section next to the <code>Headers</code> label.</li>
+                    <li>Check the <code>raw</code> radio button.</li>
+                    <li>Set the dropdown menu to the right of the radio buttons to <code>JSON (application/json)</code></li>
+                    <li>In the code box, paste the following:</li>
+                    <pre><code>{
+	"name": "CUSTOMTEXTHERE"
+}</code></pre>
+                    <ul>
+                        <li>Replace <code>CUSTOMTEXTHERE</code> with the text you want to show on your profile.</li>
+                    </ul>
+                    <li>In the URL bar above the <code>Headers</code> and <code>Body</code> labels, paste the following URL:</li>
+                    <code>https://canary.discordapp.com/api/v6/users/@me/connections/PLATFORM/NAME</code>
+                    <ul>
+                        <li>Replace <code>PLATFORM</code> with one of the following:</li>
+                        <ul>
+                            <li><code>leagueoflegends</code></li>
+                            <li><code>steam</code></li>
+                            <li><code>skype</code></li>
+                            <li><code>battlenet</code></li>
+                        </ul>
+                        <li>Replace <code>NAME</code> with any alphanumeric string (letters and numbers).</li>
+                        <ul>
+                            <li>Remember to change this value every time you add a new connection.</li>
+                        </ul>
+                    </ul>
+                </ol>
+                <p class="red">Do NOT click the <code>Send</code> buton. Proceed to the next step.</p>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="column">
+                <h5>Fetching your token</h5>
+                <p>In order to link the request to your account, you need to get your Discord token. Your token acts as a sign-in key for the server to identify and verify your account.</p>
+                <p class="red">Do NOT share your token with anyone. Your token can be used to hijack your account should other people find it. Always keep it private.</p>
+                <ol start="1">
+                    <li>Open the Discord Client.</li>
+                    <li>Press <code>Ctrl+Shift+I</code> (<code>Cmd+Shift+I</code> on Mac) to open the Developer Tools.</li>
+                    <li>At the top of the dialog, open the <code>Application</code> panel.</li>
+                    <li>On the left, click on the dropdown arrow next to <code>Local Storage</code>, then click on <code>https://discordapp.com</code>.</li>
+                    <li>You should see a table on the dialog. At the bottom of the table, select the value across from <code>token</code>.</li>
+                    <li>Copy the value from Step 5 to the clipboard.</li>
+                    <li>Close the Developer Tools dialog with the x at the top-right.</li>
+                </ol>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="column">
+                <h5>Entering your token into the request</h5>
+                <ol start="1">
+                    <li>In Postman, open the <code>Headers</code> panel.</li>
+                    <li>Add the following header to your request:</li>
+                    <table class="u-full-width">
+                        <thead>
+                            <tr>
+                                <th>Key</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Authorization</td>
+                                <td>TOKENHERE</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>Replace <code>TOKENHERE</code> with the token you copied. Remember to remove the quotation marks if you copied them as well.</p>
+
+                </ol>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="column">
+                <h5>Sending the request</h5>
+                <p>Once you've verified that the <code>name</code> property in the request body is set to the custom text you want, click the blue <code>Send</code> button in the top-right of the page.</p>
+                <p>Check the <code>Response</code> panel. The server should return with a response code of 204. This means the server has successfully processed the request, but has not returned anything. Don't worry, this is normal.</p>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="column">
+                <h5>Showing the connection on your profile</h5>
+                <p>The server's returned with a proper code, meaning the connection has been added to your account. Great!</p>
+                <ol start="1">
+                    <li>Open the Discord client and open the user settings by clicking on the gear next to your profile in the bottom left.</li>
+                    <li>Navigate to the <code>Connections</code> section.</li>
+                    <li>You should see your new connection in the list with the icon matching the service you selected.</li>
+                    <li>If there is one switch on the connection, click it to show it on your profile. If there are two switches, click the leftmost switch.</li>
+                </ol>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column">
+                <img src="/neatcord/images/display_connection.png" style="display: block; margin: 0 auto;">
+            </div>
+
+        </div>
+        <hr>
+        <div class="row">
+            <div class="column">
+                <h5>Managing connections</h5>
+                <p>You now have a new connection on your profile! Open your profile by navigating to a channel/DM, clicking on your avatar/username and showing your profile.</p>
+                <p>If you want to add multiple connections, be sure to change the <code>NAME</code> parameter of the URL in the request. If you can't remember what you had previously set it to, check the previously sent requests on the left of Postman and
+                    look at the URL in the top section of the panel.</p>
+                <p>If you want to hide a connection, go back to the <code>Connections</code> section of your settings and hide the connection using the switch.</p>
+                <p>To delete a connection click the <code>X</code> on the top-right of the connection. It should disappear from the list, and you'll need to send a new request to get it back.</p>
+            </div>
+        </div>
+        <hr>
+        <div class="row" style="margin-bottom: 10%">
+            <div class="column">
+                <p>Thanks for reading this guide! Hopefully it was of use to you.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+
+</html>
